@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Card, Table, Tag, Badge, Alert, Tabs, Space } from 'antd'
+import { Card, Table, Tag, Badge, Alert, Tabs, Space, Row, Col } from 'antd'
 import { AlertTriangle, Shield, Activity } from 'lucide-react'
 import ReactECharts from 'echarts-for-react'
+import { RiskLevelPieChart } from './AdditionalCharts'
 
 const { TabPane } = Tabs
 
@@ -246,14 +247,30 @@ const ThreatDetectionPanel = ({ threats = [] }) => {
         </Card>
       </div>
 
-      <Card title="威胁详情列表">
-        <Table
-          columns={columns}
-          dataSource={threats.map((threat, idx) => ({ ...threat, key: idx }))}
-          pagination={{ pageSize: 10 }}
-          scroll={{ x: 800 }}
-        />
-      </Card>
+      <Row gutter={[16, 16]} style={{ marginTop: 24 }}>
+        <Col xs={24} lg={12}>
+          <Card>
+            <RiskLevelPieChart data={{ 
+              riskLevels: [
+                { name: '高危', value: highThreats.length, description: '研发服务器数据外泄、账户暴力破解' },
+                { name: '中危', value: mediumThreats.length, description: '财务敏感邮件对外发送' },
+                { name: '低危', value: threats.length - highThreats.length - mediumThreats.length, description: '员工未打卡但网络活跃' }
+              ]
+            }} />
+          </Card>
+        </Col>
+        <Col xs={24} lg={12}>
+          <Card title="威胁详情列表">
+            <Table
+              columns={columns}
+              dataSource={threats.map((threat, idx) => ({ ...threat, key: idx }))}
+              pagination={{ pageSize: 5 }}
+              scroll={{ x: 800 }}
+              size="small"
+            />
+          </Card>
+        </Col>
+      </Row>
     </div>
   )
 }

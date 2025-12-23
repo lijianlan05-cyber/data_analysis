@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactECharts from 'echarts-for-react'
+import { Row, Col } from 'antd'
+import { FailedLoginChart, NonWorkHoursHeatmap } from './AdditionalCharts'
 
 const LoginSecurityChart = ({ data, detailed = false }) => {
   if (!data) return <div>暂无数据</div>
@@ -132,6 +134,21 @@ const LoginSecurityChart = ({ data, detailed = false }) => {
           notMerge={true}
           lazyUpdate={true}
         />
+      )}
+      
+      {detailed && (
+        <Row gutter={[16, 16]} style={{ marginTop: 24 }}>
+          <Col xs={24} lg={12}>
+            <div style={{ background: '#fafafa', padding: 16, borderRadius: 8 }}>
+              <FailedLoginChart data={data} />
+            </div>
+          </Col>
+          <Col xs={24} lg={12}>
+            <div style={{ background: '#fafafa', padding: 16, borderRadius: 8 }}>
+              <NonWorkHoursHeatmap data={data} />
+            </div>
+          </Col>
+        </Row>
       )}
     </div>
   )

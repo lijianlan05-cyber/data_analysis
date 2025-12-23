@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactECharts from 'echarts-for-react'
 import { Row, Col } from 'antd'
+import { EmailKeywordCloud, EmailNetworkGraph, TcpTrafficLineChart } from './AdditionalCharts'
 
 const EmployeeBehaviorChart = ({ data }) => {
   if (!data) return <div>暂无数据</div>
@@ -232,6 +233,27 @@ const EmployeeBehaviorChart = ({ data }) => {
             notMerge={true}
             lazyUpdate={true}
           />
+        </Col>
+      </Row>
+      
+      <Row gutter={[16, 16]} style={{ marginTop: 24 }}>
+        <Col xs={24}>
+          <div style={{ background: '#fafafa', padding: 16, borderRadius: 8 }}>
+            <TcpTrafficLineChart data={data} />
+          </div>
+        </Col>
+      </Row>
+      
+      <Row gutter={[16, 16]} style={{ marginTop: 24 }}>
+        <Col xs={24} lg={12}>
+          <div style={{ background: '#fafafa', padding: 16, borderRadius: 8 }}>
+            <EmailKeywordCloud data={data} />
+          </div>
+        </Col>
+        <Col xs={24} lg={12}>
+          <div style={{ background: '#fafafa', padding: 16, borderRadius: 8 }}>
+            <EmailNetworkGraph data={data} />
+          </div>
         </Col>
       </Row>
     </div>

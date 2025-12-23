@@ -8,7 +8,10 @@ import {
   Network, 
   AlertTriangle,
   TrendingUp,
-  Clock
+  Clock,
+  Building2,
+  FileWarning,
+  Globe
 } from 'lucide-react'
 import LoginSecurityChart from './components/LoginSecurityChart'
 import NetworkTrafficChart from './components/NetworkTrafficChart'
@@ -16,6 +19,14 @@ import EmployeeBehaviorChart from './components/EmployeeBehaviorChart'
 import ThreatDetectionPanel from './components/ThreatDetectionPanel'
 import NetworkTopology from './components/NetworkTopology'
 import TimelineAnalysis from './components/TimelineAnalysis'
+import { 
+  AbsentButActiveChart, 
+  SensitiveWebsiteChart, 
+  EmailDomainRiskChart,
+  DepartmentBehaviorChart,
+  CrossDepartmentLoginChart,
+  HourlyTrafficChart 
+} from './components/AdvancedAnalysisCharts'
 
 const { Header, Content, Sider } = Layout
 const { TabPane } = Tabs
@@ -158,6 +169,11 @@ function App() {
       label: '登录安全'
     },
     {
+      key: 'crossDeptLogin',
+      icon: <Building2 size={18} />,
+      label: '跨部门登录'
+    },
+    {
       key: 'network',
       icon: <Network size={18} />,
       label: '网络流量'
@@ -166,6 +182,21 @@ function App() {
       key: 'employee',
       icon: <Users size={18} />,
       label: '员工行为'
+    },
+    {
+      key: 'sensitiveAccess',
+      icon: <FileWarning size={18} />,
+      label: '敏感访问'
+    },
+    {
+      key: 'emailRisk',
+      icon: <Mail size={18} />,
+      label: '邮件风险'
+    },
+    {
+      key: 'department',
+      icon: <Globe size={18} />,
+      label: '部门对比'
     },
     {
       key: 'threats',
@@ -282,16 +313,50 @@ function App() {
             <LoginSecurityChart data={analysisData?.loginSecurity} detailed />
           </Card>
         )
+      case 'crossDeptLogin':
+        return (
+          <Card title="跨部门登录检测">
+            <CrossDepartmentLoginChart />
+          </Card>
+        )
       case 'network':
         return (
-          <Card title="网络流量分析">
-            <NetworkTrafficChart data={analysisData?.networkTraffic} detailed />
-          </Card>
+          <div className="space-y-6">
+            <Card title="网络流量分析">
+              <NetworkTrafficChart data={analysisData?.networkTraffic} detailed />
+            </Card>
+            <Card title="24小时流量趋势">
+              <HourlyTrafficChart />
+            </Card>
+          </div>
         )
       case 'employee':
         return (
-          <Card title="员工行为分析">
-            <EmployeeBehaviorChart data={analysisData?.employeeBehavior} />
+          <div className="space-y-6">
+            <Card title="员工行为分析">
+              <EmployeeBehaviorChart data={analysisData?.employeeBehavior} />
+            </Card>
+            <Card title="未打卡但网络活跃员工检测">
+              <AbsentButActiveChart />
+            </Card>
+          </div>
+        )
+      case 'sensitiveAccess':
+        return (
+          <Card title="敏感网站访问分析">
+            <SensitiveWebsiteChart />
+          </Card>
+        )
+      case 'emailRisk':
+        return (
+          <Card title="邮件外部域名风险分析">
+            <EmailDomainRiskChart />
+          </Card>
+        )
+      case 'department':
+        return (
+          <Card title="部门行为特征对比">
+            <DepartmentBehaviorChart />
           </Card>
         )
       case 'threats':
