@@ -1,0 +1,14 @@
+{
+  "analysis_time": "2025-12-14T20:05:27.004524",
+  "data_period": "2017-11-01 to 2017-11-30",
+  "summary": {
+    "total_login_records": 65684,
+    "login_error_rate": 0.04964679373972353,
+    "total_web_access": 165461,
+    "total_emails": 16772,
+    "spam_emails": 1377,
+    "total_traffic_gb": 18911.863330833614,
+    "total_threats": 184,
+    "high_severity_threats": 16
+  }
+}
